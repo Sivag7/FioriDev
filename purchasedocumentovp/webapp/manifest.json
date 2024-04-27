@@ -1,0 +1,184 @@
+{
+    "_version": "1.17.0",
+    "sap.app": {
+        "id": "mm.purchasedocumentovp",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "0.0.1"
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "resources": "resources.json",
+        "sourceTemplate": {
+            "id": "@sap/generator-fiori:ovp",
+            "version": "1.10.5",
+            "toolsId": "0b362bae-df1f-4f84-b0b6-7963f282c1d9"
+        },
+        "dataSources": {
+            "mainService": {
+                "uri": "/sap/opu/odata/sap/Z_UI_PURCHASEDOCOVP_V2/",
+                "type": "OData",
+                "settings": {
+                    "annotations": [
+                        "annotation",
+                        "Z_UI_PURCHASEDOCOVP_V2_VAN"
+                    ],
+                    "localUri": "localService/metadata.xml",
+                    "odataVersion": "2.0"
+                }
+            },
+            "Z_UI_PURCHASEDOCOVP_V2_VAN": {
+                "uri": "/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Annotations(TechnicalName='Z_UI_PURCHASEDOCOVP_V2_VAN',Version='0001')/$value/",
+                "type": "ODataAnnotation",
+                "settings": {
+                    "localUri": "localService/Z_UI_PURCHASEDOCOVP_V2_VAN.xml"
+                }
+            },
+            "annotation": {
+                "type": "ODataAnnotation",
+                "uri": "annotations/annotation.xml",
+                "settings": {
+                    "localUri": "annotations/annotation.xml"
+                }
+            }
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "flexEnabled": true,
+        "dependencies": {
+            "minUI5Version": "1.71.58",
+            "libs": {
+                "sap.m": {},
+                "sap.ui.core": {},
+                "sap.ushell": {},
+                "sap.f": {},
+                "sap.ui.comp": {},
+                "sap.ui.generic.app": {},
+                "sap.suite.ui.generic.template": {},
+                "sap.ovp": {},
+                "sap.ui.rta": {},
+                "sap.ui.layout": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "mm.purchasedocumentovp.i18n.i18n"
+                }
+            },
+            "mainModel": {
+                "dataSource": "mainService",
+                "preload": true,
+                "settings": {
+                    "defaultBindingMode": "TwoWay",
+                    "defaultCountMode": "Inline",
+                    "refreshAfterChange": false,
+                    "metadataUrlParams": {
+                        "sap-value-list": "none"
+                    }
+                }
+            },
+            "@i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "uri": "i18n/i18n.properties"
+            }
+        },
+        "resources": {
+            "css": []
+        },
+        "routing": {
+            "config": {},
+            "routes": [],
+            "targets": {}
+        }
+    },
+    "sap.ovp": {
+        "globalFilterModel": "mainModel",
+        "globalFilterEntityType": "Z_C_PURCHASEDOCUMENTFILTERSOVPType",
+        "containerLayout": "resizable",
+        "enableLiveFilter": true,
+        "considerAnalyticalParameters": false,
+        "cards": {
+            "AnalyticalCard": {
+                "template": "sap.ovp.cards.charts.analytical",
+                "model": "mainModel",
+                "settings": {
+                    "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#ByPurchaseDocumentPriority",
+                    "entitySet": "Z_C_PurchaseDocumentOVP",
+                    "title": "Priority Analysis",
+                    "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#PriorityVariant",
+                    "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#DatapointPriority"
+                }
+            },
+            "ListCardApproval": {
+                "template": "sap.ovp.cards.list",
+                "model": "mainModel",
+                "settings": {
+                    "listFlavor": "standard",
+                    "listType": "extended",
+                    "entitySet": "Z_C_PurchaseDocsforApprovalOVP",
+                    "title": "PO for Approval",
+                    "sortBy": "OverallPrice",
+                    "sortOrder": "descending"
+                }
+            },
+            "REPLACE_WITH_CARD_ID": {
+                "template": "sap.ovp.cards.list",
+                "model": "mainModel",
+                "settings": {
+                    "listFlavor": "bar",
+                    "listType": "extended",
+                    "entitySet": "Z_C_PurchaseDocBudgetOVP",
+                    "title": "Budget Overview",
+                    "sortBy": "REPLACE_WITH_SORT_BY_TYPE",
+                    "sortOrder": "ascending"
+                }
+            },
+            "TableCardQualifier": {
+                "template": "sap.ovp.cards.table",
+                "model": "mainModel",
+                "settings": {
+                    "entitySet": "Z_C_PurchaseDocumentPendingOVP",
+                    "title": "Purchasing Document Items"
+                }
+            },
+            "AnalyticalCardStatus": {
+                "template": "sap.ovp.cards.charts.analytical",
+                "model": "mainModel",
+                "settings": {
+                    "entitySet": "Z_C_PurchaseDocumentOVP",
+                    "title": "Purchase Document Status",
+                    "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#ByPurchaseDocumentStatus",
+                    "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#StatusQualifier"
+                }
+            }
+        },
+        "chartSettings": {}
+    },
+    "sap.fiori": {
+        "registrationIds": [],
+        "archeType": "analytical"
+    }
+}
