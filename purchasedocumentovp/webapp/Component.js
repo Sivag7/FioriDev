@@ -6,7 +6,7 @@ sap.ui.define(
         return Component.extend("mm.purchasedocumentovp.Component", {
             // New changes
             // Analytical apps
-            // Fiori Launchpad usage
+            // Fiori Launchpad usage (button)
             metadata: {
                 manifest: "json"
             }
